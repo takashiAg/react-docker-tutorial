@@ -24,6 +24,7 @@ project_directory
     └── yarn.lock
 ```
 ```
+npx create-react-app react-application
 cd react-application
 yarn install
 yarn start
