@@ -1,10 +1,11 @@
 FROM node:14.8.0-alpine3.12
 # コンテナ内で作業するディレクトリを指定
 WORKDIR /usr/src/app
-
+# 使用するポートを指定
 EXPOSE 3000
-
+# プロジェクトをコピー
 COPY ./react-application/ .
+# 依存パッケージを追加
 RUN yarn install
 # コンテナを起動する際に実行されるコマンド
 CMD yarn start
