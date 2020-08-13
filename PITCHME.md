@@ -12,8 +12,7 @@ http://github.com/takashiAg/
 - dockerを少しわかるようになる。
 ---
 ### とりあえずやってみよう
-今reactのアプリケーションは作ってある状態とする
-こんな感じ
+reactのアプリケーションは、下記コマンドを実行したら動く状態の前提です。
 ```
 project_directory
 └── react-application
@@ -23,6 +22,11 @@ project_directory
     ├── public
     ├── src
     └── yarn.lock
+```
+```
+cd react-application
+yarn install
+yarn start
 ```
 ---
 ### dockerfileを作成する
@@ -39,20 +43,52 @@ project_directory
     └── yarn.lock
 ```
 ---
-### dockerfileの中身を作成
+### イメージを使う
+docker hubでnodejsのイメージを検索する。
+```
+FROM node:14.8.0-alpine3.12
+```
+---
+### ワークディレクトリとポート
+ワークディレクトリとポートを指定
 ```
 FROM node:14.8.0-alpine3.12
 # コンテナ内で作業するディレクトリを指定
 WORKDIR /usr/src/app
-
 EXPOSE 3000
+```
+---
 
+### dockerfileの中身を作成
+プロジェクトの内容をdockerのイメージにコピー。
+```
+FROM node:14.8.0-alpine3.12
+WORKDIR /usr/src/app
+EXPOSE 3000
 COPY ./react-application/ .
-RUN yarn install
-# コンテナを起動する際に実行されるコマンド
-CMD yarn start
 ```
 
+### dockerfileの中身を作成
+ビルドやインストールのコマンドを`RUN`の後にいれる。
+```
+FROM node:14.8.0-alpine3.12
+WORKDIR /usr/src/app
+EXPOSE 3000
+COPY ./react-application/ .
+RUN yarn install
+```
+---
+### 実行コマンド
+実行コマンドを`CMD`の後にかく。
+CMDは必ず１個まで。
+```
+FROM node:14.8.0-alpine3.12
+WORKDIR /usr/src/app
+EXPOSE 3000
+COPY ./react-application/ .
+RUN yarn install
+CMD yarn start
+```
 ---
 
 ### 動かしてみる
@@ -65,6 +101,8 @@ docker run --rm -it -p 3000:3000 (docker build -q .)
 ```
 ---
 ### dockerfileの中身を変更
+package.lockやyarn.lockに変更がないとき、`yarn install`を実行せず、キャッシュを使うように。
+package.lockやyarn.lockに変更があるとき、`yarn install`を実行し、キャッシュに保存。
 ```
 FROM node:14.8.0-alpine3.12
 # コンテナ内で作業するディレクトリを指定
@@ -95,8 +133,9 @@ docker run --rm -it -p 3000:3000 (docker build -q .)
 ```
 ---
 
-### 
-
+### 結論
+- reactをdockerで動かした。
+- docker完全に理解した
 
 ---
 
