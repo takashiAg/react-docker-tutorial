@@ -53,7 +53,6 @@ FROM node:14.8.0-alpine3.12
 ### ワークディレクトリとポート
 ワークディレクトリとポートを指定
 ```
-FROM node:14.8.0-alpine3.12
 # コンテナ内で作業するディレクトリを指定
 WORKDIR /usr/src/app
 EXPOSE 3000
@@ -63,25 +62,24 @@ EXPOSE 3000
 ### dockerfileの中身を作成
 プロジェクトの内容をdockerのイメージにコピー。
 ```
-FROM node:14.8.0-alpine3.12
-WORKDIR /usr/src/app
-EXPOSE 3000
 COPY ./react-application/ .
 ```
-
+---
 ### dockerfileの中身を作成
 ビルドやインストールのコマンドを`RUN`の後にいれる。
 ```
-FROM node:14.8.0-alpine3.12
-WORKDIR /usr/src/app
-EXPOSE 3000
-COPY ./react-application/ .
 RUN yarn install
 ```
 ---
 ### 実行コマンド
 実行コマンドを`CMD`の後にかく。
 CMDは必ず１個まで。
+```
+CMD yarn start
+```
+---
+### dockerfile
+dockerfileは最終的にこうなります。
 ```
 FROM node:14.8.0-alpine3.12
 WORKDIR /usr/src/app
