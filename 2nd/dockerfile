@@ -1,0 +1,15 @@
+FROM node:14.8.0-alpine3.12
+# コンテナ内で作業するディレクトリを指定
+WORKDIR /usr/src/app
+
+EXPOSE 3000
+
+# package.jsonとyarn.lockを/usr/src/appにコピー
+COPY ./react-application/package.json .
+COPY ./react-application/yarn.lock .
+RUN yarn install
+
+# ファイルを全部作業用ディレクトリにコピー
+COPY ./react-application/ .
+# コンテナを起動する際に実行されるコマンド
+CMD yarn start
