@@ -29,6 +29,16 @@ cd react-application
 yarn install
 yarn start
 ```
+
+---
+### 手順
+reactのアプリケーションは、下記コマンドを実行したら動く状態の前提です
+- Dockerインストール
+- 作業ディレクトリの作成
+- create-react-appとReactのインストール
+- Dockerfileの作成
+- Dockerイメージのビルド
+
 ---
 ### dockerfileを作成する
 プロジェクトディレクトリいかにdockerfileというファイルを作成する。
